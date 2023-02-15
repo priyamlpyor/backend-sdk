@@ -425,7 +425,7 @@ class SupersetClient:  # pylint: disable=too-many-public-methods
             url = self.baseurl / "api/v1" / resource_name / "" % {"q": query}
 
             _logger.debug("GET %s", url)
-            headers = {'Referer': self.baseurl}
+            headers = {'Referer': str(self.baseurl)}
             response = self.session.get(url, headers=headers)
             _logger.debug(response.text)
             validate_response(response)
