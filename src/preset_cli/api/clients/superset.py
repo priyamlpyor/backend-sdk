@@ -426,6 +426,7 @@ class SupersetClient:  # pylint: disable=too-many-public-methods
 
             _logger.debug("GET %s", url)
             response = self.session.get(url)
+            _logger.debug(response.text)
             validate_response(response)
 
             payload = response.json()

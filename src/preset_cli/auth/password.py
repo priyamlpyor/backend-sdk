@@ -9,6 +9,8 @@ from yarl import URL
 
 from preset_cli.auth.main import Auth
 
+_logger = logging.getLogger(__name__)
+
 
 class UsernamePasswordAuth(Auth):  # pylint: disable=too-few-public-methods
     """
@@ -32,7 +34,7 @@ class UsernamePasswordAuth(Auth):  # pylint: disable=too-few-public-methods
         Login to get CSRF token and cookies.
         """
         data = {"username": self.username, "password": self.password}
-
+        _logger.debug("Logging in!")
         response = self.session.get(self.baseurl / "login/")
         soup = BeautifulSoup(response.text, "html.parser")
         input_ = soup.find("input", {"id": "csrf_token"})
