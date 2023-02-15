@@ -618,8 +618,7 @@ class SupersetClient:  # pylint: disable=too-many-public-methods
                 page, ids = ids[:MAX_IDS_IN_EXPORT], ids[MAX_IDS_IN_EXPORT:]
                 params = {"q": prison.dumps(page)}
                 _logger.debug("GET %s", url % params)
-                headers = {"Referer": self.baseurl}
-                response = self.session.get(url, params=params, headers=headers)
+                response = self.session.get(url, params=params)
                 _logger.debug("GET %s", response.text)
                 validate_response(response)
 
