@@ -618,6 +618,7 @@ class SupersetClient:  # pylint: disable=too-many-public-methods
                 _logger.debug("GET %s", url % params)
                 headers = {"Referer": self.baseurl}
                 response = self.session.get(url, params=params, headers=headers)
+                _logger.debug("GET %s", response.text)
                 validate_response(response)
 
                 # write files from response to main ZIP bundle
