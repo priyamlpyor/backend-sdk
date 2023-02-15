@@ -616,7 +616,8 @@ class SupersetClient:  # pylint: disable=too-many-public-methods
                 page, ids = ids[:MAX_IDS_IN_EXPORT], ids[MAX_IDS_IN_EXPORT:]
                 params = {"q": prison.dumps(page)}
                 _logger.debug("GET %s", url % params)
-                response = self.session.get(url, params=params)
+                headers = {"Referer": self.baseurl}
+                response = self.session.get(url, params=params, headers=headers)
                 validate_response(response)
 
                 # write files from response to main ZIP bundle

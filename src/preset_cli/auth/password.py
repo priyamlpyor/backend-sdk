@@ -25,7 +25,7 @@ class UsernamePasswordAuth(Auth):  # pylint: disable=too-few-public-methods
         self.auth()
 
     def get_headers(self) -> Dict[str, str]:
-        return {"X-CSRFToken": self.csrf_token, "Referer": self.baseurl} if self.csrf_token else {"Referer": self.baseurl}
+        return {"X-CSRFToken": self.csrf_token} if self.csrf_token else {}
 
     def auth(self) -> None:
         """
