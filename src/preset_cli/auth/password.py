@@ -1,7 +1,7 @@
 """
 Mechanisms for authentication and authorization.
 """
-
+import logging
 from typing import Dict, Optional
 
 from bs4 import BeautifulSoup
