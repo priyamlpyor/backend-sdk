@@ -35,6 +35,7 @@ class UsernamePasswordAuth(Auth):  # pylint: disable=too-few-public-methods
         """
         data = {"username": self.username, "password": self.password}
         _logger.debug("Logging in!")
+        self.session.headers["Referer"] = self.baseurl
         response = self.session.get(self.baseurl / "login/")
         soup = BeautifulSoup(response.text, "html.parser")
         input_ = soup.find("input", {"id": "csrf_token"})
