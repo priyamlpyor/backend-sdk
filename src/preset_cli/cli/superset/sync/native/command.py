@@ -129,12 +129,7 @@ def render_yaml(path: Path, env: Dict[str, Any]) -> Dict[str, Any]:
     default=False,
     help="Split imports into individual assets",
 )
-@click.option(
-    "--passwords",
-    is_flag=True,
-    default=False,
-    help="Pass the database password",
-)
+@click.option("--passwords", default="", help="Pass password for database")
 @click.pass_context
 def native(  # pylint: disable=too-many-locals, too-many-arguments
     ctx: click.core.Context,
