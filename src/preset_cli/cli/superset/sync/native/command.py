@@ -192,10 +192,10 @@ def native(  # pylint: disable=too-many-locals, too-many-arguments
                 if len(passwords) > 0:
                     try:
                         db_passwords = json.loads(passwords)
-                        config["password"] = db_passwords.get(relative_path)
-                        _logger.debug('Loading passwords!')
-                    except Exception:
-                        _logger.debug('Something went wrong while loading passwords')
+                        config["password"] = db_passwords.get(str(relative_path))
+                        _logger.debug('Loaded password!')
+                    except Exception as e:
+                        _logger.debug('Something went wrong while loading passwords' + e)
                 prompt_for_passwords(relative_path, config)
                 verify_db_connectivity(config)
             if relative_path.parts[0] == "datasets" and isinstance(
