@@ -129,6 +129,7 @@ def render_yaml(path: Path, env: Dict[str, Any]) -> Dict[str, Any]:
     default=False,
     help="Split imports into individual assets",
 )
+@click.option("--passwords", default="", help="Pass the passwords for databases that are being imported")
 @click.pass_context
 def native(  # pylint: disable=too-many-locals, too-many-arguments
     ctx: click.core.Context,
@@ -139,6 +140,7 @@ def native(  # pylint: disable=too-many-locals, too-many-arguments
     external_url_prefix: str = "",
     load_env: bool = False,
     split: bool = False,
+    passwords: str = "",
 ) -> None:
     """
     Sync exported DBs/datasets/charts/dashboards to Superset.
@@ -187,6 +189,13 @@ def native(  # pylint: disable=too-many-locals, too-many-arguments
                 relative_path.parts[0] == "databases"
                 and config["uuid"] not in existing_databases
             ):
+                if not passwords:
+                    try:
+                        db_passwords = json.loads(passwords)
+                        config["password"] = db_passwords.get(relative_path)
+                        _logger.debug('Loading passwords!')
+                    except Exception:
+                        _logger.debug('Something went wrong while loading passwords')
                 prompt_for_passwords(relative_path, config)
                 verify_db_connectivity(config)
             if relative_path.parts[0] == "datasets" and isinstance(
