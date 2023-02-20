@@ -189,7 +189,7 @@ def native(  # pylint: disable=too-many-locals, too-many-arguments
                 relative_path.parts[0] == "databases"
                 and config["uuid"] not in existing_databases
             ):
-                if not passwords:
+                if len(passwords) > 0:
                     try:
                         db_passwords = json.loads(passwords)
                         config["password"] = db_passwords.get(relative_path)
